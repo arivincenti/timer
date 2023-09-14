@@ -1,0 +1,21 @@
+.digit-handler-container{
+    padding: 10px;
+    box-sizing: border-box;
+    width: 100px;
+    display: grid;
+    gap: 15px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.digit-handler__title{
+    margin: 0 auto;
+    font-size: .9em;
+    color: rgba(0, 0, 0, .6)
+}
+
+.digit-handler__value{
+    margin: 0 auto;
+    font-size: 2.5em;
+    color: rgba(0, 0, 0, .6);
+    font-weight: 600;
+}

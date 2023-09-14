@@ -1,0 +1,17 @@
+.counter-container{
+    margin: 0 auto;
+    width: 80%;
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    justify-items: center;
+    align-items: center;
+    gap: 5px;
+}
+
+span{
+    position: relative;
+    top: 15px;
+    font-weight: 600;
+    color: rgba($color: #000000, $alpha: 0.4)
+}
