@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BUTTON_TYPE } from '../helpers/constants';
+import { CounterService } from '../../timer/counter/services/counter.service';
 
 @Component({
   selector: 'app-counter-button',
@@ -11,7 +12,7 @@ export class CounterButtonComponent implements OnInit {
   buttonType = BUTTON_TYPE;
   icon: string = '';
 
-  constructor(){}
+  constructor(private readonly counterService: CounterService){}
 
   ngOnInit(): void {
     if(this.type === BUTTON_TYPE.PLAY){
@@ -21,6 +22,10 @@ export class CounterButtonComponent implements OnInit {
     }else{
       this.icon = 'pause_circle'
     }
+  }
+  
+  sendOrder(){
+    this.counterService.sendEventOrder(this.type);
   }
 
 }

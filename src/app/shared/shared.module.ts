@@ -5,6 +5,7 @@ import { DigitHandlerComponent } from './digit-handler/digit-handler.component';
 import { DigitHandlerButtonComponent } from './digit-handler-button/digit-handler-button.component';
 import { CounterButtonComponent } from './counter-button/counter-button.component';
 import { CounterButtonsComponent } from './counter-buttons/counter-buttons.component';
+import { CounterService } from '../timer/counter/services/counter.service';
 
 
 

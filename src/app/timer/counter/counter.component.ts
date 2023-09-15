@@ -1,12 +1,14 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { DIGIT_HANDLER_TITLE } from 'src/app/shared/helpers/constants';
+import {  Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { BUTTON_TYPE, DIGIT_HANDLER_TITLE } from 'src/app/shared/helpers/constants';
+import { CounterService } from 'src/app/timer/counter/services/counter.service';
 
 @Component({
   selector: 'app-counter',
   templateUrl: './counter.component.html',
   styleUrls: ['./counter.component.scss']
 })
-export class CounterComponent {
+export class CounterComponent implements OnInit {
+
   @Output() counterProgress = new EventEmitter<number>();
   @Output() initCounterProgress = new EventEmitter<number>();
   digitTitle = DIGIT_HANDLER_TITLE;
@@ -16,6 +18,23 @@ export class CounterComponent {
   hours: number = 0;
   private totalTimeInSeconds: number = 0;
   private timer: any = null;
+
+  constructor(private readonly counterService: CounterService){}
+
+  ngOnInit(): void {
+    this.counterService.recibeEventOrder().subscribe({
+      next: (order) => {
+        if(order === BUTTON_TYPE.PLAY){
+          this.startCountdown();
+        }else if(order === BUTTON_TYPE.PAUSE) {
+          this.pauseCounter();
+        }else {
+          this.stopCounter()
+        }
+      },
+      error: (error) => console.log(error)
+    });
+  }
 
   getCurrentValue($event: number){
     if(this.currentType === DIGIT_HANDLER_TITLE.HOURS) {
@@ -61,6 +80,25 @@ export class CounterComponent {
       }
       this.checkCounter();
     }, 1000)
+  }
+
+  stopCounter(){
+    if(this.timer){
+      clearTimeout(this.timer);
+      this.seconds = 0;
+      this.minutes = 0;
+      this.hours = 0;
+      this.totalTimeInSeconds = 0;
+      this.counterProgress.emit(this.totalTimeInSeconds);
+      this.initCounterProgress.emit(0)
+      this.counterService.endCounter();
+    }
+  }
+
+  pauseCounter(){
+    if(this.timer){
+      clearTimeout(this.timer);
+    }
   }
 
   checkCounter(){

@@ -4,5 +4,4 @@
   <app-digit-handler [digitHandlerTitle]="digitTitle.MINUTES" [initValue]="minutes" (currentValue)="getCurrentValue($event)" (currentType)="getCurrentType($event)"></app-digit-handler>
   <span>:</span>
   <app-digit-handler [digitHandlerTitle]="digitTitle.SECONDS" [initValue]="seconds" (currentValue)="getCurrentValue($event)" (currentType)="getCurrentType($event)"></app-digit-handler>
-  <button (click)="startCountdown()">click</button>
 </div>
