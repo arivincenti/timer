@@ -1,6 +1,6 @@
 <div class="digit-handler-container">
     <span class="digit-handler__title">{{ digitHandlerTitle.toUpperCase() }}</span>
     <app-digit-handler-button [type]="types.INCREASE" (operationSelected)="updateValue($event)"></app-digit-handler-button>
-    <span class="digit-handler__value">{{ initValue }}</span>
+    <span class="digit-handler__value">{{ counterHandlerValue }}</span>
     <app-digit-handler-button [type]="types.DECREASE" (operationSelected)="updateValue($event)"></app-digit-handler-button>
 </div>

@@ -8,21 +8,39 @@ import { BUTTON_TYPE } from "../../../shared/helpers/constants";
 export class CounterService {
     eventSubject = new BehaviorSubject(BUTTON_TYPE.PLAY);
     endCounterSubject = new BehaviorSubject(false);
+    totalTimeInSeconds$ = new BehaviorSubject(0);
+    counterProgress$ = new BehaviorSubject(0);
     constructor(){}
 
-    sendEventOrder(event: BUTTON_TYPE){
+    setEventOrder(event: BUTTON_TYPE){
         this.eventSubject.next(event)
     }
 
-    recibeEventOrder(): Observable<BUTTON_TYPE>{
+    getEventOrder(): Observable<BUTTON_TYPE>{
         return this.eventSubject.asObservable();
     }
 
-    endCounter(){
+    setEndCounter(){
         this.endCounterSubject.next(true);
     }
 
     getEndCounter(): Observable<boolean>{
         return this.endCounterSubject.asObservable();
+    }
+
+    setTotalTimeInSeconds(totalTime: number){
+        this.totalTimeInSeconds$.next(totalTime);
+    }
+
+    getTotalTimeInSeconds(){
+        return this.totalTimeInSeconds$.asObservable();
+    }
+
+    setProgressCounter(progress: number){
+        this.counterProgress$.next(progress);
+    }
+
+    getProgressCounter(){
+        return this.counterProgress$.asObservable();
     }
 }

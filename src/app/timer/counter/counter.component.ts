@@ -1,4 +1,5 @@
-import {  Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import {  Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { BUTTON_TYPE, DIGIT_HANDLER_TITLE } from 'src/app/shared/helpers/constants';
 import { CounterService } from 'src/app/timer/counter/services/counter.service';
 
@@ -7,33 +8,34 @@ import { CounterService } from 'src/app/timer/counter/services/counter.service';
   templateUrl: './counter.component.html',
   styleUrls: ['./counter.component.scss']
 })
-export class CounterComponent implements OnInit {
-
-  @Output() counterProgress = new EventEmitter<number>();
-  @Output() initCounterProgress = new EventEmitter<number>();
+export class CounterComponent implements OnInit, OnDestroy {
   digitTitle = DIGIT_HANDLER_TITLE;
   currentType: string = '';
   seconds: number = 0;
   minutes: number = 0;
   hours: number = 0;
+  private subscription = new Subscription();
   private totalTimeInSeconds: number = 0;
   private timer: any = null;
+  private flag: boolean = true;
 
   constructor(private readonly counterService: CounterService){}
 
   ngOnInit(): void {
-    this.counterService.recibeEventOrder().subscribe({
-      next: (order) => {
-        if(order === BUTTON_TYPE.PLAY){
-          this.startCountdown();
-        }else if(order === BUTTON_TYPE.PAUSE) {
-          this.pauseCounter();
-        }else {
-          this.stopCounter()
-        }
-      },
-      error: (error) => console.log(error)
-    });
+    this.subscription.add(
+      this.counterService.getEventOrder().subscribe({
+        next: (order) => {
+          if(order === BUTTON_TYPE.PLAY){
+            this.startCountdown();
+          }else if(order === BUTTON_TYPE.PAUSE) {
+            this.pauseCounter();
+          }else {
+            this.stopCounter()
+          }
+        },
+        error: (error) => console.log(error)
+      })
+    )
   }
 
   getCurrentValue($event: number){
@@ -47,13 +49,15 @@ export class CounterComponent implements OnInit {
 
     console.log('Total Time', this.calculateTotalTimeInSeconds(this.seconds, this.minutes, this.hours));
     this.totalTimeInSeconds = this.calculateTotalTimeInSeconds(this.seconds, this.minutes, this.hours);
-    this.counterProgress.emit(this.totalTimeInSeconds);
+    this.counterService.setTotalTimeInSeconds(this.totalTimeInSeconds);
   }
 
   startCountdown(){
     if(this.hours > 0 || this.minutes > 0 ||this.seconds > 0){
       console.log('se activa el contuntdown');
-      this.initCounterProgress.emit(this.totalTimeInSeconds);
+      if(this.flag){
+        this.counterService.setTotalTimeInSeconds(this.totalTimeInSeconds);
+      }
       this.doCountDown();
     }
   }
@@ -76,7 +80,7 @@ export class CounterComponent implements OnInit {
 
         this.totalTimeInSeconds--
         this.seconds--;
-        this.counterProgress.emit(this.totalTimeInSeconds);
+        this.counterService.setProgressCounter(this.totalTimeInSeconds);
       }
       this.checkCounter();
     }, 1000)
@@ -85,17 +89,20 @@ export class CounterComponent implements OnInit {
   stopCounter(){
     if(this.timer){
       clearTimeout(this.timer);
+      this.flag = true;
       this.seconds = 0;
       this.minutes = 0;
       this.hours = 0;
       this.totalTimeInSeconds = 0;
-      this.counterProgress.emit(this.totalTimeInSeconds);
-      this.initCounterProgress.emit(0)
-      this.counterService.endCounter();
+      this.counterService.setTotalTimeInSeconds(this.totalTimeInSeconds);
+      this.counterService.setProgressCounter(this.totalTimeInSeconds);
+      this.counterService.setEndCounter();
+      this.subscription.unsubscribe();
     }
   }
 
   pauseCounter(){
+    this.flag = false;
     if(this.timer){
       clearTimeout(this.timer);
     }
@@ -115,5 +122,9 @@ export class CounterComponent implements OnInit {
 
   getCurrentType($event: string){
     this.currentType = $event;
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

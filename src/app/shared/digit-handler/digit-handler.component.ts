@@ -8,7 +8,7 @@ import { DIGIT_HANDLER_BUTTON_TYPE, DIGIT_HANDLER_TITLE } from '../helpers/const
 })
 export class DigitHandlerComponent{
   @Input() digitHandlerTitle: string = DIGIT_HANDLER_TITLE.HOURS;
-  @Input() initValue: number = 0;
+  @Input() counterHandlerValue: number = 0;
   @Output() currentValue = new EventEmitter<number>();
   @Output() currentType = new EventEmitter<string>();
   types = DIGIT_HANDLER_BUTTON_TYPE;
@@ -17,16 +17,16 @@ export class DigitHandlerComponent{
 
   updateValue($event: string){
     if($event == DIGIT_HANDLER_BUTTON_TYPE.DECREASE){
-      if(this.initValue > 0){
-        this.initValue--;
+      if(this.counterHandlerValue > 0){
+        this.counterHandlerValue--;
         this.currentType.emit(this.digitHandlerTitle);
-        this.currentValue.emit(this.initValue);
+        this.currentValue.emit(this.counterHandlerValue);
       }
     }else {
-      if(this.initValue < 59){
-        this.initValue++;
+      if(this.counterHandlerValue < 59){
+        this.counterHandlerValue++;
         this.currentType.emit(this.digitHandlerTitle);
-        this.currentValue.emit(this.initValue);
+        this.currentValue.emit(this.counterHandlerValue);
       }
     }
   }

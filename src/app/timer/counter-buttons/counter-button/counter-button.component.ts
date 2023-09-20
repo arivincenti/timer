@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { BUTTON_TYPE } from '../helpers/constants';
-import { CounterService } from '../../timer/counter/services/counter.service';
+import { BUTTON_TYPE } from '../../../shared/helpers/constants';
+import { CounterService } from '../../counter/services/counter.service';
 
 @Component({
   selector: 'app-counter-button',
@@ -25,7 +25,7 @@ export class CounterButtonComponent implements OnInit {
   }
   
   sendOrder(){
-    this.counterService.sendEventOrder(this.type);
+    this.counterService.setEventOrder(this.type);
   }
 
 }
