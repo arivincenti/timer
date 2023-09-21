@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { DIGIT_HANDLER_BUTTON_TYPE } from '../../helpers/constants';
+import { DIGIT_HANDLER_BUTTON_TYPE } from 'src/app/helpers/constants';
 
 @Component({
   selector: 'app-digit-handler-button',

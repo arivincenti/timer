@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
-import { BUTTON_TYPE } from "../../../shared/helpers/constants";
+import { BUTTON_TYPE } from "../../../helpers/constants";
 
 @Injectable({
     providedIn: 'root'

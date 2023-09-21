@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CounterComponent } from './counter.component';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { DigitHandlerModule } from './digit-handler/digit-handler.module';
 
 
 
@@ -11,7 +11,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
   ],
   imports: [
     CommonModule,
-    SharedModule
+    DigitHandlerModule
   ],
   exports: [CounterComponent]
 })

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BUTTON_TYPE } from '../shared/helpers/constants';
+import { BUTTON_TYPE } from '../helpers/constants';
 
 @Component({
   selector: 'app-timer',
@@ -13,7 +13,6 @@ export class TimerComponent implements OnInit{
   ngOnInit(): void {}
 
   manageTimer($event: string){
-    console.log($event);
     this.timerEvent = $event;
   }
 }

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { BUTTON_TYPE } from '../../shared/helpers/constants';
+import { BUTTON_TYPE } from '../../helpers/constants';
 
 @Component({
   selector: 'app-counter-buttons',

@@ -10,12 +10,13 @@
 .digit-handler__title{
     margin: 0 auto;
     font-size: .9em;
-    color: rgba(0, 0, 0, .6)
+    color: rgba(0, 0, 0, .4);
+    font-weight: 500;
 }
 
 .digit-handler__value{
     margin: 0 auto;
-    font-size: 2.5em;
+    font-size: 3em;
     color: rgba(0, 0, 0, .6);
     font-weight: 600;
 }

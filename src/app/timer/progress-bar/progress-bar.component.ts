@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CounterService } from 'src/app/timer/counter/services/counter.service';
-import { BUTTON_TYPE } from '../../shared/helpers/constants';
+import { BUTTON_TYPE } from '../../helpers/constants';
 import { Subscription } from 'rxjs';
+import { ProgressBarService } from './progress-bar.service';
 
 @Component({
   selector: 'app-progress-bar',
@@ -12,13 +13,19 @@ export class ProgressBarComponent implements OnInit, OnDestroy {
   initProgress: number;
   totalSeconds: number;
   initProgressCounter;
-  progressBar: number = 100;
+  progressBar: number;
   subscription: Subscription = new Subscription();
+  progressBarColor: string;
 
-  constructor(private readonly counterService: CounterService){
+  constructor(
+    private readonly counterService: CounterService,
+    private readonly progressBarService: ProgressBarService
+    ){
     this.totalSeconds = 0;
     this.initProgress = 0;
     this.initProgressCounter = 0;
+    this.progressBar = 100;
+    this.progressBarColor = 'darkgreen'
   }
 
   ngOnInit(): void {
@@ -44,7 +51,7 @@ export class ProgressBarComponent implements OnInit, OnDestroy {
 
     this.subscription.add(
       this.counterService.getEndCounter().subscribe({
-        next: () => this.progressBar = 100,
+        next: () => {this.counterService.setProgressCounter(100)},
         error: (err) => console.log(err)
       })
     )
@@ -52,9 +59,10 @@ export class ProgressBarComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this.counterService.getProgressCounter().subscribe({
         next: (progress) => {
-          this.progressBar =  100 - (this.totalSeconds - progress) * 100 / this.totalSeconds;
-          console.log('totalSeconds', this.totalSeconds);
-          console.log('progress', this.progressBar);
+          if(this.totalSeconds > 0){
+            this.progressBar =  100 - (this.totalSeconds - progress) * 100 / this.totalSeconds;
+          }
+          this.progressBarColor = this.progressBarService.setBarColor(this.progressBar);
         },
         error: (err) => console.error(err)
       })

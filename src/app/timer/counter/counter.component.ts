@@ -1,6 +1,6 @@
 import {  Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { BUTTON_TYPE, DIGIT_HANDLER_TITLE } from 'src/app/shared/helpers/constants';
+import { BUTTON_TYPE, DIGIT_HANDLER_TITLE } from 'src/app/helpers/constants';
 import { CounterService } from 'src/app/timer/counter/services/counter.service';
 
 @Component({
@@ -47,15 +47,14 @@ export class CounterComponent implements OnInit, OnDestroy {
       this.seconds = $event;
     }
 
-    console.log('Total Time', this.calculateTotalTimeInSeconds(this.seconds, this.minutes, this.hours));
     this.totalTimeInSeconds = this.calculateTotalTimeInSeconds(this.seconds, this.minutes, this.hours);
     this.counterService.setTotalTimeInSeconds(this.totalTimeInSeconds);
   }
 
   startCountdown(){
     if(this.hours > 0 || this.minutes > 0 ||this.seconds > 0){
-      console.log('se activa el contuntdown');
       if(this.flag){
+        this.flag = false;
         this.counterService.setTotalTimeInSeconds(this.totalTimeInSeconds);
       }
       this.doCountDown();
@@ -97,7 +96,6 @@ export class CounterComponent implements OnInit, OnDestroy {
       this.counterService.setTotalTimeInSeconds(this.totalTimeInSeconds);
       this.counterService.setProgressCounter(this.totalTimeInSeconds);
       this.counterService.setEndCounter();
-      this.subscription.unsubscribe();
     }
   }
 
@@ -112,7 +110,7 @@ export class CounterComponent implements OnInit, OnDestroy {
     if(this.hours > 0 || this.minutes > 0 ||this.seconds > 0){
       this.doCountDown();
     }else {
-      console.log('end-count-down')
+      console.log('EndCountDown')
     }
   }
 

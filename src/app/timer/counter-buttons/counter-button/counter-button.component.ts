@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { BUTTON_TYPE } from '../../../shared/helpers/constants';
+import { BUTTON_TYPE } from '../../../helpers/constants';
 import { CounterService } from '../../counter/services/counter.service';
 
 @Component({
