@@ -57,6 +57,7 @@ export class CounterComponent implements OnInit, OnDestroy {
         this.flag = false;
         this.counterService.setTotalTimeInSeconds(this.totalTimeInSeconds);
       }
+      this.counterService.setStartCounter(true);
       this.doCountDown();
     }
   }
@@ -95,6 +96,7 @@ export class CounterComponent implements OnInit, OnDestroy {
       this.totalTimeInSeconds = 0;
       this.counterService.setTotalTimeInSeconds(this.totalTimeInSeconds);
       this.counterService.setProgressCounter(this.totalTimeInSeconds);
+      this.counterService.setStartCounter(false);
       this.counterService.setEndCounter();
     }
   }

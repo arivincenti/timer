@@ -6,26 +6,36 @@ import { BUTTON_TYPE } from "../../../helpers/constants";
     providedIn: 'root'
 })
 export class CounterService {
-    eventSubject = new BehaviorSubject(BUTTON_TYPE.PLAY);
-    endCounterSubject = new BehaviorSubject(false);
+    eventSubject$ = new BehaviorSubject(BUTTON_TYPE.PAUSE);
+    startCounterSubject$ = new BehaviorSubject(false);
+    endCounterSubject$ = new BehaviorSubject(false);
     totalTimeInSeconds$ = new BehaviorSubject(0);
     counterProgress$ = new BehaviorSubject(0);
     constructor(){}
 
     setEventOrder(event: BUTTON_TYPE){
-        this.eventSubject.next(event)
+        this.eventSubject$.next(event)
     }
 
     getEventOrder(): Observable<BUTTON_TYPE>{
-        return this.eventSubject.asObservable();
+        return this.eventSubject$.asObservable();
     }
 
     setEndCounter(){
-        this.endCounterSubject.next(true);
+        this.endCounterSubject$.next(true);
     }
 
     getEndCounter(): Observable<boolean>{
-        return this.endCounterSubject.asObservable();
+        return this.endCounterSubject$.asObservable();
+    }
+
+    setStartCounter(order: boolean){
+        console.log(order);
+        this.startCounterSubject$.next(order);
+    }
+
+    getStartCounter(): Observable<boolean>{
+        return this.startCounterSubject$.asObservable();
     }
 
     setTotalTimeInSeconds(totalTime: number){

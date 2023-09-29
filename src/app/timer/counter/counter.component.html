@@ -1,7 +1,11 @@
 <div class="counter-container">
   <app-digit-handler [digitHandlerTitle]="digitTitle.HOURS" [counterHandlerValue]="hours" (currentValue)="getCurrentValue($event)" (currentType)="getCurrentType($event)"></app-digit-handler>
-  <span>:</span>
+  <div class="span-container">
+    <span>:</span>
+  </div>
   <app-digit-handler [digitHandlerTitle]="digitTitle.MINUTES" [counterHandlerValue]="minutes" (currentValue)="getCurrentValue($event)" (currentType)="getCurrentType($event)"></app-digit-handler>
-  <span>:</span>
+  <div class="span-container">
+    <span>:</span>
+  </div>
   <app-digit-handler [digitHandlerTitle]="digitTitle.SECONDS" [counterHandlerValue]="seconds" (currentValue)="getCurrentValue($event)" (currentType)="getCurrentType($event)"></app-digit-handler>
 </div>

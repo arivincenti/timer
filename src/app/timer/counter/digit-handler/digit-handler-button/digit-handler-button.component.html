@@ -1,5 +1,5 @@
 <div class="digit-handler-button-container">
-    <button class="digit-handler-button-container__button" (click)="updateValue()">
+    <button class="digit-handler-button-container__button" (click)="updateValue()" [disabled]="isStarted$ | async">
         <span class="material-symbols-outlined">
             {{ buttonIcon }}
         </span>

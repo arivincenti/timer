@@ -1,7 +1,6 @@
 .digit-handler-container{
     padding: 10px;
     box-sizing: border-box;
-    width: 100px;
     display: grid;
     gap: 15px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -16,7 +15,7 @@
 
 .digit-handler__value{
     margin: 0 auto;
-    font-size: 3em;
     color: rgba(0, 0, 0, .6);
+    font-size: 6em;
     font-weight: 600;
 }

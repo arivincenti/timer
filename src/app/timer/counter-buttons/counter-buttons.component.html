@@ -1,5 +1,5 @@
 <div class="counter-buttons-container">
-    <app-counter-button [type]="types.PLAY"></app-counter-button>
-    <app-counter-button [type]="types.PAUSE"></app-counter-button>
+    <app-counter-button *ngIf="(actualEvent$ | async) === types.PAUSE || (actualEvent$ | async) === types.STOP" [type]="types.PLAY"></app-counter-button>
+    <app-counter-button *ngIf="(actualEvent$ | async) === types.PLAY" [type]="types.PAUSE"></app-counter-button>
     <app-counter-button [type]="types.STOP"></app-counter-button>
 </div>
