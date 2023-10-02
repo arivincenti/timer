@@ -9,10 +9,11 @@ import { CounterService } from '../../counter/services/counter.service';
 })
 export class CounterButtonComponent implements OnInit {
   @Input() type = BUTTON_TYPE.PLAY;
+  @Output() order = new EventEmitter<BUTTON_TYPE>();
   buttonType = BUTTON_TYPE;
   icon: string = '';
 
-  constructor(private readonly counterService: CounterService){}
+  constructor(){}
 
   ngOnInit(): void {
     if(this.type === BUTTON_TYPE.PLAY){
@@ -25,7 +26,7 @@ export class CounterButtonComponent implements OnInit {
   }
   
   sendOrder(){
-    this.counterService.setEventOrder(this.type);
+    this.order.emit(this.type);
   }
 
 }

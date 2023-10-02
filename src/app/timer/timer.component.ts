@@ -8,11 +8,7 @@ import { BUTTON_TYPE } from '../helpers/constants';
 })
 export class TimerComponent implements OnInit{
   types = BUTTON_TYPE;
-  timerEvent: string = '';
 
   ngOnInit(): void {}
 
-  manageTimer($event: string){
-    this.timerEvent = $event;
-  }
 }

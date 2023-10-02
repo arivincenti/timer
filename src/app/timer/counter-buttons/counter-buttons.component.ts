@@ -19,4 +19,8 @@ export class CounterButtonsComponent implements OnInit{
   ngOnInit(): void {
       this.actualEvent$ = this.counterService.getEventOrder();
   }
+
+  sendOrder($event: BUTTON_TYPE){
+    this.counterService.setEventOrder($event);
+  }
 }
