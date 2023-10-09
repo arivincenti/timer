@@ -6,7 +6,6 @@ import { ProgressBarModule } from './progress-bar/progress-bar.module';
 import { CounterButtonsModule } from './counter-buttons/counter-buttons.module';
 
 
-
 @NgModule({
   declarations: [
     TimerComponent,

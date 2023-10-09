@@ -2,16 +2,16 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 import { BUTTON_TYPE } from "../../../helpers/constants";
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class CounterService {
     eventSubject$ = new BehaviorSubject(BUTTON_TYPE.PAUSE);
     startCounterSubject$ = new BehaviorSubject(false);
     endCounterSubject$ = new BehaviorSubject(false);
     totalTimeInSeconds$ = new BehaviorSubject(0);
     counterProgress$ = new BehaviorSubject(0);
-    constructor(){}
+    constructor(){
+        console.log('service was called')
+    }
 
     setEventOrder(event: BUTTON_TYPE){
         this.eventSubject$.next(event)
